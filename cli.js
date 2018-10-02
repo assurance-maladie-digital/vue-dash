@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
-const [,, ...args] = process.argv;
-
-console.log(`Hello world ${args}`);
+require('yargs')
+	.commandDir('cmds')
+	.demandCommand()
+	.help()
+	.option('verbose', {
+		alias: 'v',
+		default: false
+	})
+	.argv;
