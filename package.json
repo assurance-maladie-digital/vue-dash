@@ -1,0 +1,32 @@
+{
+	"name": "@cnamts/vue-dash",
+	"version": "0.1.0",
+	"description": "Official CNAM template CLI",
+	"keywords": [
+		"vue",
+		"vuejs2",
+		"vue-cli",
+		"cli",
+		"cnam",
+		"vue-dash",
+		"template"
+	],
+	"homepage": "https://github.com/assurance-maladie-digital/vue-dash/blob/master/README.md",
+	"bugs": {
+		"url": "https://github.com/assurance-maladie-digital/vue-dash/issues",
+		"email": "dylan.broussard.externe@capgemini.com"
+	},
+	"license": "MIT",
+	"author": "Dylan Broussard <deraw@outlook.fr>",
+	"files": [],
+	"bin": {
+		"vue-dash": "./cli.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/assurance-maladie-digital/vue-dash"
+	},
+	"scripts": {},
+	"dependencies": {},
+	"devDependencies": {}
+}
