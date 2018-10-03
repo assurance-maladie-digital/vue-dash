@@ -20,19 +20,29 @@
 	"author": "Dylan Broussard <deraw@outlook.fr>",
 	"files": [],
 	"bin": {
-		"vue-dash": "./cli.js"
+		"vue-dash": "./dist/cli.js"
 	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/assurance-maladie-digital/vue-dash"
 	},
-	"scripts": {},
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc --watch",
+		"lint": "tslint --project tsconfig.json"
+	},
 	"dependencies": {
+		"chalk": "^2.4.1",
 		"extfs": "^0.0.7",
 		"inquirer": "^6.2.0",
 		"node-cmd": "^3.0.0",
 		"recursive-copy": "^2.0.9",
 		"yargs": "^12.0.2"
 	},
-	"devDependencies": {}
+	"devDependencies": {
+		"@types/node": "^10.11.3",
+		"module-alias": "^2.1.0",
+		"tslint": "^5.11.0",
+		"typescript": "^3.1.1"
+	}
 }

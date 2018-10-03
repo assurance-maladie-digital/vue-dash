@@ -1,0 +1,36 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"module": "CommonJS",
+		"strict": true,
+		"jsx": "preserve",
+		"importHelpers": true,
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"sourceMap": false,
+		"baseUrl": ".",
+		"locale": "fr",
+		"types": [
+			"node"
+		],
+		"paths": {
+			"@/*": [
+				"src/*"
+			]
+		},
+		"lib": [
+			"es2018",
+			"es2015",
+			"scripthost"
+		],
+		"outDir": "dist"
+	},
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx", "src/cli.js"
+	],
+	"exclude": [
+		"node_modules",
+		"src/template"
+	]
+}

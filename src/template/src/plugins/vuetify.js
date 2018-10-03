@@ -4,7 +4,7 @@ import Vue from 'vue';
 import {
 	Vuetify,
 	VApp,
-	VContent,
+	VGrid,
 	transitions
 } from 'vuetify';
 
@@ -13,7 +13,7 @@ import 'vuetify/src/stylus/app.styl';
 Vue.use(Vuetify, {
 	components: {
 		VApp,
-		VContent,
+		VGrid,
 		transitions
 	}
 });
