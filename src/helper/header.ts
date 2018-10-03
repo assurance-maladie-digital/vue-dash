@@ -1,4 +1,4 @@
-import chalk, { colors, log } from '../src/helper/chalk';
+import chalk, { colors, log } from './chalk';
 import * as figlet from 'figlet';
 
 // display 'VueDash' with 'Georgia11' font, and 'primay' color

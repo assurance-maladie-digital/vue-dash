@@ -8,8 +8,8 @@ const spin = spinner('Building library…');
 spin.start();
 
 import chalk, { log } from '../src/helper/chalk';
-const cmd = require('node-cmd');
 
+const cmd = require('node-cmd');
 const fs = require('extfs');
 const fse = require('fs-extra');
 const path = require('path');
