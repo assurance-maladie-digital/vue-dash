@@ -8,6 +8,7 @@ yarn-error.log*
 /tests/e2e/reports
 selenium-debug.log
 /src/config/
+package-lock.json
 
 # Editor directories and files
 .idea
