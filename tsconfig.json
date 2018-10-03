@@ -11,7 +11,9 @@
 		"baseUrl": ".",
 		"locale": "fr",
 		"types": [
-			"node"
+			"node",
+			"figlet",
+			"module-alias"
 		],
 		"paths": {
 			"@/*": [
@@ -27,7 +29,7 @@
 	},
 	"include": [
 		"src/**/*.ts",
-		"src/**/*.tsx", "src/cli.js"
+		"src/**/*.js"
 	],
 	"exclude": [
 		"node_modules",

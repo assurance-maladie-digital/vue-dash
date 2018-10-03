@@ -27,7 +27,7 @@
 		"url": "https://github.com/assurance-maladie-digital/vue-dash"
 	},
 	"scripts": {
-		"build": "tsc",
+		"build": "ts-node ./scripts/build",
 		"dev": "tsc --watch",
 		"lint": "tslint --project tsconfig.json"
 	},
