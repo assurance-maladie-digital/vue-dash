@@ -1,7 +1,7 @@
 {
 	"name": "@cnamts/vue-dash",
 	"version": "0.1.0",
-	"description": "Official CNAM template CLI",
+	"description": "Official CNAM Vue.js CLI",
 	"keywords": [
 		"vue",
 		"vuejs2",
