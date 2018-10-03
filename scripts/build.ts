@@ -1,13 +1,13 @@
 const clear = require('clear');
 clear();
 
-import './header';
+import '../src/helper/header';
 
 import spinner from '../src/helper/spinner';
 const spin = spinner('Building library…');
 spin.start();
 
-import chalk, { colors, log } from '../src/helper/chalk';
+import chalk, { log } from '../src/helper/chalk';
 const cmd = require('node-cmd');
 
 const fs = require('extfs');
@@ -25,12 +25,11 @@ const showStats = () => {
 
 	getSize(dist, (error: Error, size: number) => {
 		if (error) {
-			log(chalk.red('Error: ' + error));
+			log(chalk.red(`Error: ${error}`));
 		}
 
+		log(chalk.blue(`Library size: ${(size / 1024).toFixed(2)} KB`));
 		process.stdout.write('\n');
-
-		log(chalk.blue('Library size: ' + (size / 1024).toFixed(2) + ' KB'));
 	});
 };
 
@@ -54,7 +53,7 @@ cmd.get('tsc', (error: Error) => {
 	spin.stop();
 
 	if (error) {
-		log(chalk.red('Error: ' + error));
+		log(chalk.red(`Error: ${error}`));
 	} else {
 		log(chalk.white.bold('🎉  Successfully build VueDash'));
 		showStats();
