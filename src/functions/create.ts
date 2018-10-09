@@ -1,11 +1,12 @@
-import fs from 'extfs';
-import copy from 'recursive-copy';
-import inquirer from 'inquirer';
-import cmd from 'node-cmd';
+import * as path from 'path';
+import * as fs from 'extfs';
+import * as copy from 'recursive-copy';
+import * as inquirer from 'inquirer';
 
 import Argv from '@/interfaces/argv';
+import trad from '@/translations';
 
-import emptyDir from './emptyDir';
+import chalk, { colors, log, xLog } from '@/helper/chalk';
 
 interface Answers {
 	overwrite: string;
@@ -15,70 +16,104 @@ const options = {
 	dot: true
 };
 
-const questions = [
-	{
-		type: 'list',
-		name: 'overwrite',
-		message: 'overwrite the content of the current folder',
-		choices: [
-			'Yes',
-			'No'
-		]
-	}
-];
+const src = (pathValue: string): string => path.join(__dirname, `${pathValue}`);
+
+const questions = (argv: Argv) => {
+	return [
+		{
+			type: 'list',
+			name: 'overwrite',
+			message: chalk.bold(`Target directory ` + chalk.cyan(src(argv.name)) + ' already exists. Pick an action:'),
+			choices: [
+				{
+					name: trad('functions.create.question.choices.overwrite'),
+					value: true
+				},
+				{
+					name: trad('functions.create.question.choices.cancel'),
+					value: false
+				}
+			]
+		}
+	];
+};
 
 const copyToDest = (argv: Argv, dest: string) => {
-	copy('../template', dest, options)
+	copy(src('../template'), dest, options)
 	.then((results: any[]) => {
 		if (argv.verbose) {
-			// console.info(`Copied ${results.length} files`);
+			xLog(`📋 Copied ${results.length} files`, 'event');
 		}
 
-		if (argv.verbose) {
-			// console.info('Run `yarn` command');
-		}
+		process.stdout.write('\n');
+		process.chdir(argv.name);
 
-		cmd.run('yarn');
+
+		const { spawn } = require('child_process');
+		const child = spawn('yarn', { stdio: 'inherit' });
+
+		child.on('exit', () => {
+			process.stdout.write('\n');
+			log(chalk.white.bold(`🎉 Successfully created application ${chalk.cyan(argv.name)}`));
+		});
 	})
 	.catch((error: Error) => {
-		// console.error(`Copy failed: ${error}`);
+		xLog(`Error: ${error}`, 'error');
 	});
 };
 
 const create = (argv: Argv) => {
-	const dest = process.cwd();
+	const dest = argv.name;
 
 	if (argv.verbose) {
-		// console.info('Copy of template');
-		// console.info(`Destination folder: ${dest}`);
-		// console.info(`Directory empty: ${fs.isEmptySync(dest)}`);
+		xLog(
+			`Copy 'template' to ${chalk.hex('#d0d0d0')(src(dest))}`,
+			'verbose'
+		);
+
+		xLog(
+			`Target directory empty: ${fs.isEmptySync(dest)}`,
+			'verbose'
+		);
 	}
+
+
+	const version = require(`@root/package.json`).version;
+	log(chalk.bold.hex(colors.primary)(`🛰️  VueDash v${version}`));
+
+	process.stdout.write('\n');
+	log(chalk.white.bold(`🚧 Creating application…`));
+	process.stdout.write('\n');
 
 	if (!fs.isEmptySync(dest)) {
 		if (argv.verbose) {
-			// console.info('Ask if user wants to overwrite directory content');
+			xLog('Ask user to pick an action', 'verbose');
+			process.stdout.write('\n');
 		}
 
 		inquirer
-		.prompt(questions)
+		.prompt(questions(argv))
 		.then((answers: Answers) => {
 			if (argv.verbose) {
-				// console.info(`User answer: ${answers.overwrite}`);
+				process.stdout.write('\n');
+				xLog(`User answer: ${answers.overwrite}`, 'verbose');
+				process.stdout.write('\n');
 			}
 
-			if (answers.overwrite === 'Yes') {
-				emptyDir(dest);
+			if (answers.overwrite) {
+				fs.removeSync(dest);
+
 				copyToDest(argv, dest);
 			} else {
 				if (argv.verbose) {
-					// console.info('Ending program');
+					xLog(chalk.hex('#d0d0d0')('Ending program'), '');
 				}
 
 				process.exit();
 			}
 		})
 		.catch((error: Error) => {
-			// console.error(error);
+			xLog(`Error: ${error}`, 'error');
 		});
 	} else {
 		copyToDest(argv, dest);

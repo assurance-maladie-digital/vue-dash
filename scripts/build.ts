@@ -1,13 +1,14 @@
 const clear = require('clear');
 clear();
 
-import '../src/helper/header';
+import header from '../src/helper/header';
+header();
 
 import spinner from '../src/helper/spinner';
 const spin = spinner('Building library…');
 spin.start();
 
-import chalk, { log } from '../src/helper/chalk';
+import chalk, { log, xLog } from '../src/helper/chalk';
 
 const cmd = require('node-cmd');
 const fs = require('extfs');
@@ -15,7 +16,7 @@ const fse = require('fs-extra');
 const path = require('path');
 
 // src('src/dist') -> @root'/src/dist'
-const src = (pathValue: string): string => path.join(__dirname, '..', `${pathValue}`);
+const src = (pathValue: string): string => path.join(__dirname, '..', pathValue);
 
 const dist = src('dist');
 
@@ -25,7 +26,7 @@ const showStats = () => {
 
 	getSize(dist, (error: Error, size: number) => {
 		if (error) {
-			log(chalk.red(`Error: ${error}`));
+			xLog(`Error: ${error}`, 'error');
 		}
 
 		log(chalk.blue(`Library size: ${(size / 1024).toFixed(2)} KB`));
@@ -55,7 +56,7 @@ cmd.get('tsc', (error: Error) => {
 	if (error) {
 		log(chalk.red(`Error: ${error}`));
 	} else {
-		log(chalk.white.bold('🎉  Successfully build VueDash'));
+		log(chalk.white.bold(`🎉  Successfully build VueDash`));
 		showStats();
 	}
 });

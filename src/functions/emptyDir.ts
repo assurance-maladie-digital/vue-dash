@@ -1,4 +1,4 @@
-import fs from 'extfs';
+import * as fs from 'extfs';
 
 const emptyDir = (dirPath: string) => {
 	let files = [];
@@ -6,7 +6,7 @@ const emptyDir = (dirPath: string) => {
 	try {
 		files = fs.readdirSync(dirPath);
 	} catch (error) {
-		//
+		console.log(error)
 		return;
 	}
 
@@ -24,10 +24,7 @@ const emptyDir = (dirPath: string) => {
 		}
 	}
 
-	if (
-		dirPath !== process.cwd() &&
-		fs.lstatSync(dirPath).isDirectory()
-	) {
+	if (fs.lstatSync(dirPath).isDirectory()) {
 		fs.removeSync(dirPath, () => {
 			//
 		});
